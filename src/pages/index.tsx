@@ -45,11 +45,12 @@ export default function Home() {
       <main
         className={`w-full h-screen flex justify-center pt-58 ${backgroundColor} ${textColor} transition-all duration-500 ease-in-out`}
       >
-        <div className="max-w-736"></div>
-        <Header
-          theme={isDarkTheme ? "dark" : "light"}
-          toggleTheme={toggleTheme}
-        />
+        <div className="max-w-736 w-full">
+          <Header
+            theme={isDarkTheme ? "dark" : "light"}
+            toggleTheme={toggleTheme}
+          />
+        </div>
 
         {/* <InputField
           value="Some value"

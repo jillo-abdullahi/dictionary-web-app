@@ -8,7 +8,7 @@ export interface ThemeToggleProps {
 }
 export const Header: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
   return (
-    <header className="flex justify-between items-center py-4 px-8">
+    <header className="flex justify-between items-center py-4 px-8 w-full">
       <div>
         <Image
           src="/assets/images/logo.svg"
@@ -17,7 +17,9 @@ export const Header: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
           height={36.5}
         />
       </div>
-      <div className="flex items-center justify-center space-x-5">
+      <div
+        className={`flex items-center justify-center space-x-5 divide-x divide-gray-200`}
+      >
         <FontToggle />
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       </div>
