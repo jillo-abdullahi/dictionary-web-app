@@ -32,6 +32,12 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
         lora: ["Lora", "serif"],
       },
+      maxWidth: {
+        736: "46rem",
+      },
+      spacing: {
+        58: "3.625rem",
+      },
     },
   },
   plugins: [],

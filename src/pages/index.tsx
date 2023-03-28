@@ -1,6 +1,39 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
+import clsx from "clsx";
+import { InputField } from "@/components/inputField";
+import { Header } from "@/containers/Header";
+
+enum Font {
+  INTER = "INTER",
+  LORA = "LORA",
+  INCONSOLATA = "INCONSOLATA",
+}
 
 export default function Home() {
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [font, setFont] = useState<Font>(Font.INTER);
+  const [textColor, setTextColor] = useState<"text-white" | "text-black">(
+    "text-white"
+  );
+  const [backgroundColor, setBackgroundColor] = useState<
+    "bg-white" | "bg-black"
+  >("bg-black");
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
+  useEffect(() => {
+    if (!isDarkTheme) {
+      setTextColor("text-black");
+      setBackgroundColor("bg-white");
+    } else {
+      setTextColor("text-white");
+      setBackgroundColor("bg-black");
+    }
+  }, [isDarkTheme]);
+
   return (
     <>
       <Head>
@@ -9,8 +42,20 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/assets/images/favicon.png" />
       </Head>
-      <main className="font-lora font-normal text-xl">
-        The quick brown fox jumps over the lazy dog.
+      <main
+        className={`w-full h-screen flex justify-center pt-58 ${backgroundColor} ${textColor} transition-all duration-500 ease-in-out`}
+      >
+        <div className="max-w-736"></div>
+        <Header
+          theme={isDarkTheme ? "dark" : "light"}
+          toggleTheme={toggleTheme}
+        />
+
+        {/* <InputField
+          value="Some value"
+          placeholder="Enter word"
+          handleChange={(e) => console.log("somethig")}
+        /> */}
       </main>
     </>
   );
