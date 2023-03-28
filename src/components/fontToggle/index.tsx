@@ -4,7 +4,7 @@ import { FontType } from "@/containers/Header";
 
 interface FontToggleProps {
   font: FontType;
-  toggleFont: () => void;
+  toggleFont: (font: FontType) => void;
   theme: string;
 }
 
@@ -18,7 +18,11 @@ export const FontToggle: React.FC<FontToggleProps> = ({
 
   const dropDownRef = useRef(null);
 
-  const dropDownOptions = ["Sans Serif", "Serif", "Mono"];
+  const dropDownOptions = [
+    { label: "Sans Serif", type: FontType.INTER },
+    { label: "Serif", type: FontType.LORA },
+    { label: "Mono", type: FontType.INCONSOLATA },
+  ];
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
@@ -55,10 +59,10 @@ export const FontToggle: React.FC<FontToggleProps> = ({
       <div
         className={`font-bold text-gray-500 ${
           activeOption === "Sans Serif"
-            ? "font-inter"
+            ? FontType.INTER
             : activeOption === "Serif"
-            ? "font-lora"
-            : "font-inconsolata"
+            ? FontType.LORA
+            : FontType.INCONSOLATA
         }
         ${theme === "light" ? "text-gray-500" : "text-white"}`}
       >
@@ -86,20 +90,20 @@ export const FontToggle: React.FC<FontToggleProps> = ({
           return (
             <a
               className={`hover:text-purple transition-all duration-100 ease-in-out font-bold text-lg w-full text-left ${
-                option === "Sans Serif"
-                  ? "font-inter"
-                  : option === "Serif"
-                  ? "font-lora"
-                  : "font-inconsolata"
+                option.label === "Sans Serif"
+                  ? FontType.INTER
+                  : option.label === "Serif"
+                  ? FontType.LORA
+                  : FontType.INCONSOLATA
               }`}
               key={index}
               onClick={() => {
-                setActiveOption(option);
-                // toggleFont();
+                setActiveOption(option.label);
+                toggleFont(option.type);
                 setShowDropdown(false);
               }}
             >
-              {option}
+              {option.label}
             </a>
           );
         })}

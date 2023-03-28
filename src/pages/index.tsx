@@ -19,6 +19,16 @@ export default function Home() {
     setIsDarkTheme(!isDarkTheme);
   };
 
+  const toggleFont = (_font: FontType) => {
+    if (_font === FontType.INTER) {
+      setFont(FontType.INTER);
+    } else if (_font === FontType.LORA) {
+      setFont(FontType.LORA);
+    } else {
+      setFont(FontType.INCONSOLATA);
+    }
+  };
+
   useEffect(() => {
     if (!isDarkTheme) {
       setTextColor("text-black");
@@ -38,15 +48,16 @@ export default function Home() {
         <link rel="icon" href="/assets/images/favicon.png" />
       </Head>
       <main
-        className={`w-full h-screen flex justify-center pt-58 ${backgroundColor} ${textColor} transition-all duration-500 ease-in-out`}
+        className={`w-full h-screen flex justify-center pt-58 ${backgroundColor} ${textColor} ${font} transition-all duration-500 ease-in-out`}
       >
         <div className="max-w-736 w-full">
           <Header
             theme={isDarkTheme ? "dark" : "light"}
             toggleTheme={toggleTheme}
+            font={font}
+            toggleFont={toggleFont}
           />
         </div>
-
         {/* <InputField
           value="Some value"
           placeholder="Enter word"

@@ -3,16 +3,16 @@ import { FontToggle } from "@/components/fontToggle";
 import { ThemeToggle } from "@/components/themeToggle";
 
 export enum FontType {
-  INTER = "INTER",
-  LORA = "LORA",
-  INCONSOLATA = "INCONSOLATA",
+  INTER = "font-inter",
+  LORA = "font-lora",
+  INCONSOLATA = "font-inconsolata",
 }
 
 interface HeaderProps {
   theme: string;
   toggleTheme: () => void;
   font: FontType;
-  toggleFont: () => void;
+  toggleFont: (font: FontType) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
