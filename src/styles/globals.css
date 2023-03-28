@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "inconsolata";
+  src: url("../../public/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf");
+}
+@font-face {
+  font-family: "inter";
+  src: url("../../public/fonts/inter/Inter-VariableFont_slnt,wght.ttf");
+}
+@font-face {
+  font-family: "lora";
+  src: url("../../public/fonts/lora/Lora-VariableFont_wght.ttf");
+}
+
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;

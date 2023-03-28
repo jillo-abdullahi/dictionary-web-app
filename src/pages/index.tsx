@@ -9,7 +9,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/assets/images/favicon.png" />
       </Head>
-      <main></main>
+      <main className="font-lora font-normal text-xl">
+        The quick brown fox jumps over the lazy dog.
+      </main>
     </>
   );
 }

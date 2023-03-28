@@ -27,6 +27,11 @@ module.exports = {
           DEFAULT: "#A445ED",
         },
       },
+      fontFamily: {
+        inconsolata: ["Inconsolata", "monospace"],
+        inter: ["Inter", "sans-serif"],
+        lora: ["Lora", "serif"],
+      },
     },
   },
   plugins: [],
