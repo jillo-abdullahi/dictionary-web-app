@@ -79,9 +79,10 @@ export const FontToggle: React.FC<FontToggleProps> = ({
 
       {/* dropdown  */}
       <div
-        className={`absolute top-10 right-6 flex flex-col space-y-4 w-183 rounded-2xl items-start p-6 transition-opacity duration-100  ${
+        className={`absolute z-10 top-10 right-6 flex flex-col space-y-4 w-183 rounded-2xl items-start p-6 transition-opacity duration-100  ${
           showDropdown ? "opacity-100" : "opacity-0"
-        }`}
+        }
+        ${theme === "light" ? "bg-white" : "bg-black"}`}
         style={{
           boxShadow: `${dropDownBoxShadow}`,
         }}

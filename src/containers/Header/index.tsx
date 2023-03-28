@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({
   toggleFont,
 }) => {
   return (
-    <header className="flex justify-between items-center py-4 px-8 w-full">
+    <header className="flex justify-between items-center py-4 w-full">
       <div>
         <Image
           src="/assets/images/logo.svg"
