@@ -2,11 +2,25 @@ import Image from "next/image";
 import { FontToggle } from "@/components/fontToggle";
 import { ThemeToggle } from "@/components/themeToggle";
 
-export interface ThemeToggleProps {
+export enum FontType {
+  INTER = "INTER",
+  LORA = "LORA",
+  INCONSOLATA = "INCONSOLATA",
+}
+
+interface HeaderProps {
   theme: string;
   toggleTheme: () => void;
+  font: FontType;
+  toggleFont: () => void;
 }
-export const Header: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
+
+export const Header: React.FC<HeaderProps> = ({
+  theme,
+  toggleTheme,
+  font,
+  toggleFont,
+}) => {
   return (
     <header className="flex justify-between items-center py-4 px-8 w-full">
       <div>
@@ -18,9 +32,9 @@ export const Header: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
         />
       </div>
       <div
-        className={`flex items-center justify-center space-x-5 divide-x divide-gray-200`}
+        className={`flex items-center justify-center divide-x divide-gray-200`}
       >
-        <FontToggle />
+        <FontToggle font={font} toggleFont={toggleFont} theme={theme} />
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       </div>
     </header>

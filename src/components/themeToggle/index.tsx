@@ -1,5 +1,9 @@
 import Image from "next/image";
-import { ThemeToggleProps } from "@/containers/Header";
+
+interface ThemeToggleProps {
+  theme: string;
+  toggleTheme: () => void;
+}
 
 export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   theme,

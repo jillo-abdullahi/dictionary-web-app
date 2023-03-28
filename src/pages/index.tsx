@@ -3,16 +3,11 @@ import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { InputField } from "@/components/inputField";
 import { Header } from "@/containers/Header";
-
-enum Font {
-  INTER = "INTER",
-  LORA = "LORA",
-  INCONSOLATA = "INCONSOLATA",
-}
+import { FontType } from "@/containers/Header";
 
 export default function Home() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [font, setFont] = useState<Font>(Font.INTER);
+  const [font, setFont] = useState<FontType>(FontType.INTER);
   const [textColor, setTextColor] = useState<"text-white" | "text-black">(
     "text-white"
   );
