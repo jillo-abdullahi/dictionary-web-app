@@ -5,6 +5,7 @@ import { InputField } from "@/components/inputField";
 import { Header } from "@/containers/Header";
 import { FontType } from "@/containers/Header";
 import { EmptyState } from "@/components/emptyState";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function Home() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -14,6 +15,10 @@ export default function Home() {
   );
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [error, setError] = useState<string>("");
+
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [fetchError, setFetchError] = useState<string>("");
 
   const [backgroundColor, setBackgroundColor] = useState<
     "bg-white" | "bg-black"
@@ -48,15 +53,34 @@ export default function Home() {
     setError("");
   }, [searchTerm]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     e.preventDefault();
 
     if (searchTerm.trim() === "") {
       setError("Whoops, can’t be empty...");
+
+      return;
     } else {
       setError("");
     }
+
+    // fetch from API
+    setLoading(true);
+    try {
+      const response = await fetch(`${API}${searchTerm}`);
+      const jsonData = await response.json();
+      setData(jsonData.length ? jsonData[0] : jsonData);
+    } catch (error) {
+      setFetchError("Whoops, something went wrong...try again later");
+      setLoading(false);
+    } finally {
+      setLoading(false);
+      setFetchError("");
+    }
   };
+
+  console.log({ data, fetchError, loading });
 
   return (
     <>
@@ -89,128 +113,158 @@ export default function Home() {
             />
           </div>
 
-          <div className="mt-12">
-            <div className="flex w-full justify-between items-center">
-              <div className="flex flex-col space-y-2">
-                <h1 className="text-6xl font-bold">Keyboard</h1>
-                <span className="text-purple text-2xl">{"/ˈkiːbɔːd/"}</span>
-              </div>
-              <button>
-                <Image
-                  src="/assets/images/icon-play.svg"
-                  alt="volume"
-                  width={75}
-                  height={75}
-                />
-              </button>
-            </div>
-
-            <div className="mt-12 w-full">
-              <div className="relative flex items-center">
-                <h2 className="mr-5 text-2xl italic font-bold ">noun</h2>
-                <hr
-                  className={`  w-full ${
-                    isDarkTheme ? "border-gray-400" : "border-gray-200"
-                  }`}
-                />
-              </div>
-
-              <div className="mt-10">
-                {/* Meaning  */}
-                <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
-                <div className="pl-10">
-                  <ul className="list-disc  marker:text-purple space-y-3">
-                    <li className="text-lg">
-                      (etc.) A set of keys used to operate a typewriter,
-                      computer etc.
-                    </li>
-                    <li className="text-lg">
-                      A component of many instruments including the piano,
-                      organ, and harpsichord consisting of usually black and
-                      white keys that cause different tones to be produced when
-                      struck.
-                    </li>
-                    <li className="text-lg">
-                      A device with keys of a musical keyboard, used to control
-                      electronic sound-producing devices which may be built into
-                      or separate from the keyboard device.
-                    </li>
-                  </ul>
+          {!loading && !fetchError && data?.title !== "No Definitions Found" ? (
+            <div className="mt-12">
+              <div className="flex w-full justify-between items-center">
+                <div className="flex flex-col space-y-2">
+                  <h1 className="text-6xl font-bold">Keyboard</h1>
+                  <span className="text-purple text-2xl">{"/ˈkiːbɔːd/"}</span>
                 </div>
-                {/* Synonyms  */}
-                <div className="flex items-center justify-start mt-10">
-                  <h3 className="text-gray-300 text-xl">Synonyms</h3>
-                  <div className="ml-2 space-x-2">
-                    <span className="text-purple text-bold text-xl">
-                      electronic
-                    </span>
-                    <span className="text-purple text-bold text-xl">
-                      Keyboard
-                    </span>
-                  </div>
-                </div>
+                <button>
+                  <Image
+                    src="/assets/images/icon-play.svg"
+                    alt="volume"
+                    width={75}
+                    height={75}
+                  />
+                </button>
               </div>
 
-              {/* Verbs  */}
               <div className="mt-12 w-full">
                 <div className="relative flex items-center">
-                  <h2 className="mr-5 text-2xl italic font-bold ">verb</h2>
+                  <h2 className="mr-5 text-2xl italic font-bold ">noun</h2>
                   <hr
                     className={`  w-full ${
                       isDarkTheme ? "border-gray-400" : "border-gray-200"
                     }`}
                   />
                 </div>
-              </div>
 
-              <div className="mt-10">
-                <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
-                <div className="pl-10">
-                  <ul className="list-disc  marker:text-purple space-y-3">
-                    <li className="text-lg">
-                      <p>
+                {/* search results  */}
+                <div className="mt-10">
+                  {/* Meaning  */}
+                  <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
+                  <div className="pl-10">
+                    <ul className="list-disc  marker:text-purple space-y-3">
+                      <li className="text-lg">
                         (etc.) A set of keys used to operate a typewriter,
                         computer etc.
-                      </p>
+                      </li>
+                      <li className="text-lg">
+                        A component of many instruments including the piano,
+                        organ, and harpsichord consisting of usually black and
+                        white keys that cause different tones to be produced
+                        when struck.
+                      </li>
+                      <li className="text-lg">
+                        A device with keys of a musical keyboard, used to
+                        control electronic sound-producing devices which may be
+                        built into or separate from the keyboard device.
+                      </li>
+                    </ul>
+                  </div>
+                  {/* Synonyms  */}
+                  <div className="flex items-center justify-start mt-10">
+                    <h3 className="text-gray-300 text-xl">Synonyms</h3>
+                    <div className="ml-2 space-x-2">
+                      <span className="text-purple text-bold text-xl">
+                        electronic
+                      </span>
+                      <span className="text-purple text-bold text-xl">
+                        Keyboard
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
-                      <p className="mt-3 text-gray-300">
-                        “Keyboarding is the part of this job I hate the most.”
-                      </p>
-                    </li>
-                  </ul>
+                {/* Verbs  */}
+                <div className="mt-12 w-full">
+                  <div className="relative flex items-center">
+                    <h2 className="mr-5 text-2xl italic font-bold ">verb</h2>
+                    <hr
+                      className={`  w-full ${
+                        isDarkTheme ? "border-gray-400" : "border-gray-200"
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-10">
+                  <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
+                  <div className="pl-10">
+                    <ul className="list-disc  marker:text-purple space-y-3">
+                      <li className="text-lg">
+                        <p>
+                          (etc.) A set of keys used to operate a typewriter,
+                          computer etc.
+                        </p>
+
+                        <p className="mt-3 text-gray-300">
+                          “Keyboarding is the part of this job I hate the most.”
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* source  */}
+                <div className="flex items-center justify-start space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
+                  <p className="text-gray-300 text-sm underline underline-offset-2">
+                    Source
+                  </p>
+                  <p
+                    className={`${
+                      isDarkTheme ? "text-white" : "text-gray-300"
+                    }`}
+                  >
+                    <a
+                      href="https://en.wiktionary.org/wiki/keyboard"
+                      target="_blank"
+                      className="text-sm flex space-x-2"
+                    >
+                      <span className="underline underline-offset-2">
+                        https://en.wiktionary.org/wiki/keyboard
+                      </span>
+
+                      <Image
+                        src="/assets/images/icon-new-window.svg"
+                        alt="external"
+                        width={12}
+                        height={12}
+                      />
+                    </a>
+                  </p>
                 </div>
               </div>
-
-              {/* source  */}
-              <div className="flex items-center justify-start space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
-                <p className="text-gray-300 text-sm underline underline-offset-2">
-                  Source
-                </p>
-                <p
-                  className={`${isDarkTheme ? "text-white" : "text-gray-300"}`}
-                >
-                  <a
-                    href="https://en.wiktionary.org/wiki/keyboard"
-                    target="_blank"
-                    className="text-sm flex space-x-2"
-                  >
-                    <span className="underline underline-offset-2">
-                      https://en.wiktionary.org/wiki/keyboard
-                    </span>
-
-                    <Image
-                      src="/assets/images/icon-new-window.svg"
-                      alt="external"
-                      width={12}
-                      height={12}
-                    />
-                  </a>
-                </p>
-              </div>
             </div>
+          ) : null}
 
-            {/* <EmptyState theme={isDarkTheme ? "dark" : "light"} /> */}
-          </div>
+          {/* in the event of an error or no definitions found  */}
+          {!loading &&
+          (fetchError || data?.title === "No Definitions Found") ? (
+            <div className="mt-20">
+              <EmptyState
+                fetchError={fetchError}
+                theme={isDarkTheme ? "dark" : "light"}
+              />
+            </div>
+          ) : null}
+
+          {/* loading state  */}
+          {loading && !fetchError && data?.title !== "No Definitions Found" ? (
+            <div className="flex justify-center items-center mt-20">
+              <MagnifyingGlass
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="MagnifyingGlass-loading"
+                wrapperStyle={{}}
+                wrapperClass="MagnifyingGlass-wrapper"
+                glassColor="transparent"
+                color="#A445ED"
+              />
+            </div>
+          ) : null}
         </div>
       </main>
     </>
