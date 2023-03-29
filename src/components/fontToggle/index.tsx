@@ -79,8 +79,8 @@ export const FontToggle: React.FC<FontToggleProps> = ({
 
       {/* dropdown  */}
       <div
-        className={`absolute z-10 top-10 right-6 flex flex-col space-y-4 w-183 rounded-2xl items-start p-6 transition-opacity duration-100  ${
-          showDropdown ? "opacity-100" : "opacity-0"
+        className={`absolute z-10 top-10 overflow-hidden right-6 flex flex-col space-y-4 w-183 rounded-2xl items-start  transition-all duration-200  ${
+          showDropdown ? "h-40 p-6" : "h-0"
         }
         ${theme === "light" ? "bg-white" : "bg-black"}`}
         style={{
@@ -90,13 +90,14 @@ export const FontToggle: React.FC<FontToggleProps> = ({
         {dropDownOptions.map((option, index) => {
           return (
             <a
-              className={`hover:text-purple transition-all duration-100 ease-in-out font-bold text-lg w-full text-left ${
+              className={`hover:text-purple transition-opacity duration-100 ease-out font-bold text-lg w-full text-left ${
                 option.label === "Sans Serif"
                   ? FontType.INTER
                   : option.label === "Serif"
                   ? FontType.LORA
                   : FontType.INCONSOLATA
-              }`}
+              }
+              ${showDropdown ? "opacity-100" : "opacity-0"}`}
               key={index}
               onClick={() => {
                 setActiveOption(option.label);
