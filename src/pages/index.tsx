@@ -208,6 +208,8 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
+            {/* <EmptyState theme={isDarkTheme ? "dark" : "light"} /> */}
           </div>
         </div>
       </main>
