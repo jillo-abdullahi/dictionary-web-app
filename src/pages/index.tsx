@@ -182,20 +182,22 @@ export default function Home() {
 
               {/* source  */}
               <div className="flex items-center justify-start space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
-                <p className="text-gray-300 text-sm">Source</p>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm underline underline-offset-2">Source</p>
+                <p
+                  className={`${isDarkTheme ? "text-white" : "text-gray-300"}`}
+                >
                   <a
                     href="https://en.wiktionary.org/wiki/keyboard"
                     target="_blank"
                     className="text-sm flex space-x-2"
                   >
-                    <span>https://en.wiktionary.org/wiki/keyboard</span>
+                    <span className="underline underline-offset-2">https://en.wiktionary.org/wiki/keyboard</span>
 
                     <Image
                       src="/assets/images/icon-new-window.svg"
                       alt="external"
-                      width={15}
-                      height={15}
+                      width={12}
+                      height={12}
                     />
                   </a>
                 </p>
