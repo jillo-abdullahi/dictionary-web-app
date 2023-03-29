@@ -36,7 +36,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         onChange={handleChange}
         value={value}
       />
-      <div className="absolute top-0 right-6 h-full flex items-center justify-center">
+      <div className="absolute top-7 right-6 h-fit flex items-center justify-center">
         <button type="submit">
           <Image
             src="/assets/images/icon-search.svg"
