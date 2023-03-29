@@ -4,6 +4,7 @@ import Image from "next/image";
 import { InputField } from "@/components/inputField";
 import { Header } from "@/containers/Header";
 import { FontType } from "@/containers/Header";
+import { EmptyState } from "@/components/emptyState";
 
 export default function Home() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -182,7 +183,9 @@ export default function Home() {
 
               {/* source  */}
               <div className="flex items-center justify-start space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
-                <p className="text-gray-300 text-sm underline underline-offset-2">Source</p>
+                <p className="text-gray-300 text-sm underline underline-offset-2">
+                  Source
+                </p>
                 <p
                   className={`${isDarkTheme ? "text-white" : "text-gray-300"}`}
                 >
@@ -191,7 +194,9 @@ export default function Home() {
                     target="_blank"
                     className="text-sm flex space-x-2"
                   >
-                    <span className="underline underline-offset-2">https://en.wiktionary.org/wiki/keyboard</span>
+                    <span className="underline underline-offset-2">
+                      https://en.wiktionary.org/wiki/keyboard
+                    </span>
 
                     <Image
                       src="/assets/images/icon-new-window.svg"
