@@ -18,8 +18,6 @@ export const InputField: React.FC<InputFieldProps> = ({
   theme,
   font,
 }) => {
-
-    console.log({error})
   return (
     <form className="relative w-full" onSubmit={handleSubmit}>
       <input
@@ -49,9 +47,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         </button>
       </div>
       {error && (
-        <span className="font-normal text-red text-sm mt-2">
-          Whoops, can’t be empty...
-        </span>
+        <span className="font-normal text-red text-sm mt-2">{error}</span>
       )}
     </form>
   );

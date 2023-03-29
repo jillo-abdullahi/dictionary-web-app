@@ -51,7 +51,7 @@ export default function Home() {
     e.preventDefault();
 
     if (searchTerm.trim() === "") {
-      setError("Please enter a word");
+      setError("Whoops, can’t be empty...");
     } else {
       setError("");
     }
@@ -66,7 +66,7 @@ export default function Home() {
         <link rel="icon" href="/assets/images/logo.svg" />
       </Head>
       <main
-        className={`w-full h-screen flex justify-center pt-58 ${backgroundColor} ${textColor} ${font} transition-all duration-500 ease-in-out`}
+        className={`w-full h-full min-h-screen flex justify-center pt-58 pb-10 ${backgroundColor} ${textColor} ${font} transition-all duration-500 ease-in-out`}
       >
         <div className="max-w-736 w-full">
           <Header
@@ -106,12 +106,99 @@ export default function Home() {
 
             <div className="mt-12 w-full">
               <div className="relative flex items-center">
-                <span className="mr-5 text-2xl italic font-bold ">noun</span>
+                <h2 className="mr-5 text-2xl italic font-bold ">noun</h2>
                 <hr
                   className={`  w-full ${
                     isDarkTheme ? "border-gray-400" : "border-gray-200"
                   }`}
                 />
+              </div>
+
+              <div className="mt-10">
+                {/* Meaning  */}
+                <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
+                <div className="pl-10">
+                  <ul className="list-disc  marker:text-purple space-y-3">
+                    <li className="text-lg">
+                      (etc.) A set of keys used to operate a typewriter,
+                      computer etc.
+                    </li>
+                    <li className="text-lg">
+                      A component of many instruments including the piano,
+                      organ, and harpsichord consisting of usually black and
+                      white keys that cause different tones to be produced when
+                      struck.
+                    </li>
+                    <li className="text-lg">
+                      A device with keys of a musical keyboard, used to control
+                      electronic sound-producing devices which may be built into
+                      or separate from the keyboard device.
+                    </li>
+                  </ul>
+                </div>
+                {/* Synonyms  */}
+                <div className="flex items-center justify-start mt-10">
+                  <h3 className="text-gray-300 text-xl">Synonyms</h3>
+                  <div className="ml-2 space-x-2">
+                    <span className="text-purple text-bold text-xl">
+                      electronic
+                    </span>
+                    <span className="text-purple text-bold text-xl">
+                      Keyboard
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Verbs  */}
+              <div className="mt-12 w-full">
+                <div className="relative flex items-center">
+                  <h2 className="mr-5 text-2xl italic font-bold ">verb</h2>
+                  <hr
+                    className={`  w-full ${
+                      isDarkTheme ? "border-gray-400" : "border-gray-200"
+                    }`}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
+                <div className="pl-10">
+                  <ul className="list-disc  marker:text-purple space-y-3">
+                    <li className="text-lg">
+                      <p>
+                        (etc.) A set of keys used to operate a typewriter,
+                        computer etc.
+                      </p>
+
+                      <p className="mt-3 text-gray-300">
+                        “Keyboarding is the part of this job I hate the most.”
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* source  */}
+              <div className="flex items-center justify-start space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
+                <p className="text-gray-300 text-sm">Source</p>
+                <p className="text-gray-300">
+                  <a
+                    href="https://en.wiktionary.org/wiki/keyboard"
+                    target="_blank"
+                    className="text-sm flex space-x-2"
+                  >
+                    <span>https://en.wiktionary.org/wiki/keyboard</span>
+
+                    <Image
+                      src="/assets/images/icon-new-window.svg"
+                      alt="external"
+                      width={15}
+                      height={15}
+                    />
+                  </a>
+                </p>
               </div>
             </div>
           </div>
