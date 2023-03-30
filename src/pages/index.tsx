@@ -187,7 +187,7 @@ export default function Home() {
         <link rel="icon" href="/assets/images/logo.svg" />
       </Head>
       <main
-        className={`w-full h-full min-h-screen flex justify-center pt-58 pb-10 ${backgroundColor} ${textColor} ${font} transition-all duration-500 ease-in-out`}
+        className={`w-full h-full min-h-screen px-10 md:px-0 flex justify-center pt-58 pb-10 ${backgroundColor} ${textColor} ${font} transition-all duration-500 ease-in-out`}
       >
         <div className="max-w-736 w-full">
           <Header
@@ -256,7 +256,7 @@ export default function Home() {
 
               {/* source  */}
               {data.sourceUrls ? (
-                <div className="flex items-center justify-start space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
+                <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-start md:items-center justify-start md:space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
                   <p className="text-gray-300 text-sm underline underline-offset-2">
                     Source
                   </p>
