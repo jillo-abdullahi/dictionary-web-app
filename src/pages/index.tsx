@@ -25,6 +25,11 @@ export default function Home() {
     audio: "",
   });
 
+  const playAudio = (audioFile: string) => {
+    const audio = new Audio(audioFile);
+    audio.play();
+  };
+
   const [backgroundColor, setBackgroundColor] = useState<
     "bg-white" | "bg-black"
   >("bg-black");
@@ -72,6 +77,7 @@ export default function Home() {
 
     // fetch from API
     setLoading(true);
+    setPhonetics({ text: "", audio: "" });
     try {
       const response = await fetch(`${API}${searchTerm}`);
       const jsonData = await response.json();
@@ -212,18 +218,20 @@ export default function Home() {
                     </span>
                   )}
                 </div>
-                <button>
-                  <Image
-                    src="/assets/images/icon-play.svg"
-                    alt="volume"
-                    width={75}
-                    height={75}
-                  />
-                </button>
+                {phonetics.audio ? (
+                  <button onClick={() => playAudio(phonetics.audio)}>
+                    <Image
+                      src="/assets/images/icon-play.svg"
+                      alt="volume"
+                      width={75}
+                      height={75}
+                    />
+                  </button>
+                ) : null}
               </div>
 
               {/* search results  */}
-              {data?.meanings.length
+              {data.meanings && data?.meanings.length
                 ? data.meanings.map((meaning: any, index: number) => {
                     return (
                       <div key={index}>
