@@ -10,7 +10,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   toggleTheme,
 }) => {
   return (
-    <div className="flex space-x-5 items-center justify-center px-7">
+    <div className="flex space-x-5 items-center justify-center pl-7">
       {/* toggle switch  */}
       <label className="switch">
         <input

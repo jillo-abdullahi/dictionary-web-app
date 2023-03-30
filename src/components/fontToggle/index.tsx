@@ -14,7 +14,7 @@ export const FontToggle: React.FC<FontToggleProps> = ({
   theme,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [activeOption, setActiveOption] = useState("Sans Serif");
+  const [activeOption, setActiveOption] = useState("Serif");
 
   const dropDownRef = useRef(null);
 
@@ -27,7 +27,7 @@ export const FontToggle: React.FC<FontToggleProps> = ({
     setShowDropdown(!showDropdown);
   };
 
-  //   some styling for the dropdown
+  // some styling for the dropdown
   const dropDownBoxShadow =
     theme === "light"
       ? "0px 5px 30px rgba(0, 0, 0, 0.1)"

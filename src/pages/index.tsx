@@ -9,7 +9,7 @@ import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function Home() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [font, setFont] = useState<FontType>(FontType.INTER);
+  const [font, setFont] = useState<FontType>(FontType.LORA);
   const [textColor, setTextColor] = useState<"text-white" | "text-black">(
     "text-white"
   );
@@ -19,11 +19,13 @@ export default function Home() {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [fetchError, setFetchError] = useState<string>("");
-
   const [phonetics, setPhonetics] = useState<{ text: string; audio: string }>({
     text: "",
     audio: "",
   });
+
+  // hover state for audio button
+  const [hover, setHover] = useState<boolean>(false);
 
   const playAudio = (audioFile: string) => {
     const audio = new Audio(audioFile);
@@ -219,9 +221,17 @@ export default function Home() {
                   )}
                 </div>
                 {phonetics.audio ? (
-                  <button onClick={() => playAudio(phonetics.audio)}>
+                  <button
+                    onClick={() => playAudio(phonetics.audio)}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                  >
                     <Image
-                      src="/assets/images/icon-play.svg"
+                      src={`${
+                        hover
+                          ? "/assets/images/icon-play-hover.svg"
+                          : "/assets/images/icon-play.svg"
+                      }`}
                       alt="volume"
                       width={75}
                       height={75}
