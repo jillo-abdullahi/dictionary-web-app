@@ -16,7 +16,7 @@ export const FontToggle: React.FC<FontToggleProps> = ({
   const [showDropdown, setShowDropdown] = useState(false);
   const [activeOption, setActiveOption] = useState("Serif");
 
-  const dropDownRef = useRef(null);
+  const dropDownRef = useRef<HTMLButtonElement>(null);
 
   const dropDownOptions = [
     { label: "Sans Serif", type: FontType.INTER },
@@ -34,11 +34,11 @@ export const FontToggle: React.FC<FontToggleProps> = ({
       : "0px 5px 30px #A445ED";
 
   // add event listener to close dropdown when clicked outside
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = (event: any) => {
     if (
       dropDownRef.current &&
       showDropdown &&
-      !dropDownRef.current.contains(event.target)
+      !dropDownRef.current?.contains(event.target)
     ) {
       setShowDropdown(false);
     }
