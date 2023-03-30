@@ -1,11 +1,12 @@
 # Dictionary web app solution
 
-This is a solution to the [Dictionary web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/dictionary-web-app-h5wwnyuKFL).
+A dictionary web app built with TailwindCSS and Next.js. It uses a free Dictionary API to fetch data for the searched word. It also uses the Web Speech API to play the audio file for the searched word.
+
+Live link: https://dictionary-web-app-ashy.vercel.app/
 
 ## Table of contents
 
 - [Overview](#overview)
-  - [Screenshot](#screenshot)
 - [Built with](#built-with)
 - [Author](#author)
 
@@ -21,11 +22,6 @@ Users should be able to:
 - Switch between light and dark themes
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
-- Have the correct color scheme chosen for them based on their computer preferences. _Hint_: Research `prefers-color-scheme` in CSS.
-
-### Screenshot
-
-Coming soon
 
 ### Built with
 
