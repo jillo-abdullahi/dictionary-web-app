@@ -106,6 +106,70 @@ export default function Home() {
     }
   };
 
+  const WordDefinition: React.FC<{
+    partofSpeech: string;
+    definitions: any;
+  }> = ({ partofSpeech, definitions }) => {
+    return (
+      <div className="mt-12 w-full">
+        {/* heading for part of speech  */}
+        <div className="relative flex items-center">
+          <h2 className="mr-5 text-2xl italic font-bold ">{partofSpeech}</h2>
+          <hr
+            className={`  w-full ${
+              isDarkTheme ? "border-gray-400" : "border-gray-200"
+            }`}
+          />
+        </div>
+
+        {/* meanings and examples */}
+        <div className="mt-10">
+          {/* Meaning  */}
+          <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
+          <div className="pl-10">
+            <ul className="list-disc  marker:text-purple space-y-3">
+              {definitions.length
+                ? definitions.map((_definition: any, index: number) => {
+                    const { definition, example, synonyms } = _definition;
+                    return (
+                      <li className="text-lg" key={index}>
+                        <p>{definition}</p>
+
+                        {example ? (
+                          <p className="mt-3 text-gray-300">{`"${example}"`}</p>
+                        ) : null}
+
+                        {/* Synonyms  */}
+                        {synonyms.length ? (
+                          <div className="flex items-center justify-start mt-10">
+                            <h3 className="text-gray-300 text-xl">Synonyms</h3>
+                            <div className="ml-2 space-x-2">
+                              {synonyms.map(
+                                (synonym: string, index: number) => {
+                                  return (
+                                    <span
+                                      key={index}
+                                      className="text-purple text-bold text-xl"
+                                    >
+                                      {synonym}
+                                    </span>
+                                  );
+                                }
+                              )}
+                            </div>
+                          </div>
+                        ) : null}
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Head>
@@ -158,84 +222,22 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="mt-12 w-full">
-                <div className="relative flex items-center">
-                  <h2 className="mr-5 text-2xl italic font-bold ">noun</h2>
-                  <hr
-                    className={`  w-full ${
-                      isDarkTheme ? "border-gray-400" : "border-gray-200"
-                    }`}
-                  />
-                </div>
+              {/* search results  */}
+              {data?.meanings.length
+                ? data.meanings.map((meaning: any, index: number) => {
+                    return (
+                      <div key={index}>
+                        <WordDefinition
+                          partofSpeech={meaning.partOfSpeech}
+                          definitions={meaning.definitions}
+                        />
+                      </div>
+                    );
+                  })
+                : null}
 
-                {/* search results  */}
-                <div className="mt-10">
-                  {/* Meaning  */}
-                  <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
-                  <div className="pl-10">
-                    <ul className="list-disc  marker:text-purple space-y-3">
-                      <li className="text-lg">
-                        (etc.) A set of keys used to operate a typewriter,
-                        computer etc.
-                      </li>
-                      <li className="text-lg">
-                        A component of many instruments including the piano,
-                        organ, and harpsichord consisting of usually black and
-                        white keys that cause different tones to be produced
-                        when struck.
-                      </li>
-                      <li className="text-lg">
-                        A device with keys of a musical keyboard, used to
-                        control electronic sound-producing devices which may be
-                        built into or separate from the keyboard device.
-                      </li>
-                    </ul>
-                  </div>
-                  {/* Synonyms  */}
-                  <div className="flex items-center justify-start mt-10">
-                    <h3 className="text-gray-300 text-xl">Synonyms</h3>
-                    <div className="ml-2 space-x-2">
-                      <span className="text-purple text-bold text-xl">
-                        electronic
-                      </span>
-                      <span className="text-purple text-bold text-xl">
-                        Keyboard
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Verbs  */}
-                <div className="mt-12 w-full">
-                  <div className="relative flex items-center">
-                    <h2 className="mr-5 text-2xl italic font-bold ">verb</h2>
-                    <hr
-                      className={`  w-full ${
-                        isDarkTheme ? "border-gray-400" : "border-gray-200"
-                      }`}
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-10">
-                  <h3 className="text-gray-300 text-xl pb-6">Meaning</h3>
-                  <div className="pl-10">
-                    <ul className="list-disc  marker:text-purple space-y-3">
-                      <li className="text-lg">
-                        <p>
-                          (etc.) A set of keys used to operate a typewriter,
-                          computer etc.
-                        </p>
-
-                        <p className="mt-3 text-gray-300">
-                          “Keyboarding is the part of this job I hate the most.”
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                {/* source  */}
+              {/* source  */}
+              {data.sourceUrls ? (
                 <div className="flex items-center justify-start space-x-5 w-full border-t border-gray-400 mt-10 pt-5">
                   <p className="text-gray-300 text-sm underline underline-offset-2">
                     Source
@@ -246,12 +248,12 @@ export default function Home() {
                     }`}
                   >
                     <a
-                      href="https://en.wiktionary.org/wiki/keyboard"
+                      href={data.sourceUrls}
                       target="_blank"
                       className="text-sm flex space-x-2"
                     >
                       <span className="underline underline-offset-2">
-                        https://en.wiktionary.org/wiki/keyboard
+                        {data.sourceUrls}
                       </span>
 
                       <Image
@@ -263,7 +265,7 @@ export default function Home() {
                     </a>
                   </p>
                 </div>
-              </div>
+              ) : null}
             </div>
           ) : null}
 
