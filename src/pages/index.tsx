@@ -20,6 +20,11 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
   const [fetchError, setFetchError] = useState<string>("");
 
+  const [phonetics, setPhonetics] = useState<{ text: string; audio: string }>({
+    text: "",
+    audio: "",
+  });
+
   const [backgroundColor, setBackgroundColor] = useState<
     "bg-white" | "bg-black"
   >("bg-black");
@@ -53,7 +58,7 @@ export default function Home() {
     setError("");
   }, [searchTerm]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     const API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
     e.preventDefault();
 
@@ -71,6 +76,27 @@ export default function Home() {
       const response = await fetch(`${API}${searchTerm}`);
       const jsonData = await response.json();
       setData(jsonData.length ? jsonData[0] : jsonData);
+
+      // set phonetics
+      if (jsonData.length) {
+        if (jsonData[0].phonetics.length === 1) {
+          setPhonetics({
+            text: jsonData[0].phonetics[0].text,
+            audio: jsonData[0].phonetics[0].audio,
+          });
+        } else if (jsonData[0].phonetics.length > 1) {
+          // check to find which phonetics array has both audio and text
+
+          const phoneticsData = jsonData[0].phonetics.filter((item: any) => {
+            return item.text && item.audio;
+          })[0];
+
+          setPhonetics({
+            text: phoneticsData.text,
+            audio: phoneticsData.audio,
+          });
+        }
+      }
     } catch (error) {
       setFetchError("Whoops, something went wrong...try again later");
       setLoading(false);
@@ -79,8 +105,6 @@ export default function Home() {
       setFetchError("");
     }
   };
-
-  console.log({ data, fetchError, loading });
 
   return (
     <>
@@ -117,8 +141,12 @@ export default function Home() {
             <div className="mt-12">
               <div className="flex w-full justify-between items-center">
                 <div className="flex flex-col space-y-2">
-                  <h1 className="text-6xl font-bold">Keyboard</h1>
-                  <span className="text-purple text-2xl">{"/ˈkiːbɔːd/"}</span>
+                  <h1 className="text-6xl font-bold">{data?.word}</h1>
+                  {phonetics.text && (
+                    <span className="text-purple text-2xl">
+                      {phonetics.text}
+                    </span>
+                  )}
                 </div>
                 <button>
                   <Image
